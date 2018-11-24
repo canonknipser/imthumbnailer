@@ -8,9 +8,9 @@
  *
  */
 
-namespace canonknipser\IMThumbnailer\migrations;
+namespace canonknipser\imthumbnailer\migrations;
 
-class install_acp_module extends \phpbb\db\migration\migration
+class install_acp_V1_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
@@ -36,7 +36,7 @@ class install_acp_module extends \phpbb\db\migration\migration
 				'acp',
 				'ACP_CK_IT_TITLE',
 				array(
-					'module_basename'	=> '\canonknipser\IMThumbnailer\acp\main_module',
+					'module_basename'	=> '\canonknipser\imthumbnailer\acp\main_module',
 					'modes'				=> array('settings'),
 				),
 			)),
