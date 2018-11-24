@@ -55,7 +55,7 @@ install:
   - cd ../../phpBB3
   - travis/prepare-extension.sh $EXTNAME $PHPBB_BRANCH
   - travis/setup-phpbb.sh $DB $TRAVIS_PHP_VERSION $NOTESTS
-  - ../canonknipser/viewexif/travis/prepare-epv.sh $EPV $NOTESTS
+  - ../canonknipser/imthumbnailer/travis/prepare-epv.sh $EPV $NOTESTS
 
 before_script:
   - travis/setup-database.sh $DB $TRAVIS_PHP_VERSION $NOTESTSource --dev
