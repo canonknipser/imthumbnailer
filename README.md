@@ -14,7 +14,7 @@ ImageMagick Thumbnailer has following Requirements:
 
 ## Installation
 
-Copy the extension to phpBB/ext/canonknipser/IMThumbnailer
+Copy the extension to phpBB/ext/canonknipser/imthumbnailer
 
 Go to "ACP" > "Customise" > "Extensions" and enable the "ImageMagick Thumbnailer" extension.
 

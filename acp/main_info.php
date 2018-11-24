@@ -8,7 +8,7 @@
  *
  */
 
-namespace canonknipser\IMThumbnailer\acp;
+namespace canonknipser\imthumbnailer\acp;
 
 /**
  * ImageMagick Thumbnailer ACP module info.
@@ -18,12 +18,12 @@ class main_info
 	public function module()
 	{
 		return array(
-			'filename'	=> '\canonknipser\IMThumbnailer\acp\main_module',
+			'filename'	=> '\canonknipser\imthumbnailer\acp\main_module',
 			'title'		=> 'ACP_CK_IT_TITLE',
 			'modes'		=> array(
 				'settings'	=> array(
 					'title'	=> 'ACP_CK_IT',
-					'auth'	=> 'ext_canonknipser/IMThumbnailer && acl_a_board',
+					'auth'	=> 'ext_canonknipser/imthumbnailer && acl_a_board',
 					'cat'	=> array('ACP_CK_IT_TITLE')
 				),
 			),

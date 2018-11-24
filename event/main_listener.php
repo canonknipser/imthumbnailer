@@ -8,7 +8,7 @@
  *
  */
 
-namespace canonknipser\IMThumbnailer\event;
+namespace canonknipser\imthumbnailer\event;
 
 /**
  * @ignore
