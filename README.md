@@ -4,7 +4,7 @@
 
 ImageMagick Thumbnailer has following Requirements:
 
-- pphBB Version greater or equal 3.2.4
+- phpBB Version greater or equal 3.2.4
 - php [Imagick library](http://php.net/manual/en/imagick.installation.php) installed
 
 ## Features
