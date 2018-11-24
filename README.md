@@ -5,7 +5,7 @@
 ImageMagick Thumbnailer has following Requirements:
 
 - pphBB Version greater or equal 3.2.4
-- php Imagick library installed
+- php [Imagick library](http://php.net/manual/en/imagick.installation.php) installed
 
 ## Features
 
@@ -22,7 +22,9 @@ Go to "ACP" > "Customise" > "Extensions" and enable the "ImageMagick Thumbnailer
 
 [GPLv2](license.txt)
 
-## Changelog
+## recent Changes
+
+please visit the [Changelog](CHANGELOG.md) for a complete list of Changes 
 
 ### 1.0.0
 
