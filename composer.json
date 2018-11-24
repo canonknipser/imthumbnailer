@@ -1,5 +1,5 @@
 {
-	"name" : "canonknipser/IMThumbnailer",
+	"name" : "canonknipser/imthumbnailer",
 	"type" : "phpbb-extension",
 	"description" : "creates thumbnails for image attachments using ImageMagick php libraries",
 	"homepage" : "http://canonknipser.com",
