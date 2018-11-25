@@ -1,7 +1,7 @@
 # sudo: required
-# dist: trusty
 sudo: false
-dist: precise
+#dist: precise
+dist: trusty
 language: php
 
 matrix:
