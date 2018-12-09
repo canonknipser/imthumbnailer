@@ -3,5 +3,9 @@ services:
         class: canonknipser\imthumbnailer\event\main_listener
         arguments:
             - '@config'
+            - '@request'
+            - 'log'
         tags:
             - { name: event.listener }
+            
+            

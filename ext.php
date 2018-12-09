@@ -22,7 +22,7 @@ class ext extends \phpbb\extension\base
 	{
 		$return_value = true;
 		// several tests, each test is only executed if the previous tests did not fail
-		// first test: php exif library installed?
+		// first test: Imagick library installed?
 		if ($return_value)
 		{
 			$return_value = class_exists('Imagick');
@@ -46,7 +46,7 @@ class ext extends \phpbb\extension\base
 			}
 		}
 
-		return($return_value);
+		return $return_value;
 	}
 
 }
