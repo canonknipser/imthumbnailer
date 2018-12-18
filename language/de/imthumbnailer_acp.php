@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * This file is part of the viewexif extension for phpBB.
+ * This file is part of the ImageMagick Thumbnailer extension for phpBB.
  * @package ImageMagick Thumbnailer
- * @copyright (c) 2017 Frank Jakobs (canonknipser)
+ * @copyright (c) 2018 Frank Jakobs (canonknipser)
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */

@@ -1,0 +1,6 @@
+/.buildpath
+/.project
+/.directory
+phpunit.xml.dist
+/composer.phar
+/archive/

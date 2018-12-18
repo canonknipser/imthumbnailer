@@ -8,7 +8,7 @@
  *
  */
 
-namespace canonknipser\IMThumbnailer;
+namespace canonknipser\imthumbnailer;
 
 /**
  * ImageMagick Thumbnailer Extension base
@@ -22,14 +22,14 @@ class ext extends \phpbb\extension\base
 	{
 		$return_value = true;
 		// several tests, each test is only executed if the previous tests did not fail
-		// first test: php exif library installed?
+		// first test: Imagick library installed?
 		if ($return_value)
 		{
 			$return_value = class_exists('Imagick');
 			if (!$return_value)
 			{
 				$user = $this->container->get('user');
-				$user->add_lang_ext('canonknipser/IMThumbnailer', 'imthumbnailer_acp');
+				$user->add_lang_ext('canonknipser/imthumbnailer', 'imthumbnailer_acp');
 				trigger_error($user->lang('CK_IM_REQUIRE_IMAGICK'), E_USER_WARNING);
 			}
 		}
@@ -41,12 +41,12 @@ class ext extends \phpbb\extension\base
 			if (!$return_value)
 			{
 				$user = $this->container->get('user');
-				$user->add_lang_ext('canonknipser/IMThumbnailer', 'imthumbnailer_acp');
+				$user->add_lang_ext('canonknipser/imthumbnailer', 'imthumbnailer_acp');
 				trigger_error($user->lang('CK_IM_REQUIRE_324'), E_USER_WARNING);
 			}
 		}
 
-		return($return_value);
+		return $return_value;
 	}
 
 }

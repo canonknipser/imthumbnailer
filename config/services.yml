@@ -1,7 +1,11 @@
 services:
-    canonknipser.IMThumbnailer.listener:
-        class: canonknipser\IMThumbnailer\event\main_listener
+    canonknipser.imthumbnailer.listener:
+        class: canonknipser\imthumbnailer\event\main_listener
         arguments:
             - '@config'
+            - '@request'
+            - 'log'
         tags:
             - { name: event.listener }
+            
+            
