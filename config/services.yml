@@ -4,7 +4,8 @@ services:
         arguments:
             - '@config'
             - '@request'
-            - 'log'
+            - '@log'
+            - '@user'
         tags:
             - { name: event.listener }
             

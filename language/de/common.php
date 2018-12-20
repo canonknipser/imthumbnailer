@@ -41,4 +41,13 @@ $lang = array_merge($lang, array(
 	'ACP_CK_IT_QUALITY_EXPLAIN'	=> 'Mit dieser Einstellung kannst du die Komprimierungsqualität für die generierten Vorschaubilder einstellen. Höhere Werte ergeben eine höhere Qualität, aber auch eine größere Datei. Vor phpBB 3.2.4 wurde dieser Wert in den Kerndateien auf 80 gesetzt.',
 	'ACP_CK_IT_SETTING_SAVED'	=> 'Einstellungen wurden erfolgreich gespeichert',
 
+	'CK_ERR_NEW_INSTANCE'		=> 'Fehler 0001: Das Erzeugen einer neuen Instanz von Imagick ist fehlgeschlagen',
+	'CK_ERR_SET_FORMAT'			=> 'Fehler 0002: Der Befehl SetImageFormat ist fehlgeschlagen',
+	'CK_ERR_SET_COMPRESSION_Q'	=> 'Fehler 0003: Der Befehl SetCompressionQuality ist fehlgeschlagen',
+	'CK_ERR_RESIZE'				=> 'Fehler 0004: Der Befehl Resize ist fehlgeschlagen: ',
+	'CK_ERR_WRITE_IMAGE'		=> 'Fehler 0005: Der Befehl WriteImage ist fehlgeschlagen ',
+	'CK_ERR_CALLING_IMAGICK'	=> 'Fehler 0006: Der Aufruf eines Imagick Services ist fehlgeschlagen, Original-Nachricht: ',
+
+	'CK_WARN_MIMETYPE'			=> 'Warnung 0001: unbekannter Mime-Type: ',
+
 ));

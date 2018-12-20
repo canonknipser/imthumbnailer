@@ -29,20 +29,25 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\log\log */
 	protected $log;
 
+	/* @var \phpbb\user */
+	protected $user;
+
 	/**
 	* Constructor for listener
 	*
 	* @param \phpbb\config\config	$config		phpBB config
 	* @param \phpbb\request\request	$request	phpBB request
 	* @param \phpbb\log\log			$log		phpBB log
+	* @param \phpbb\user			$user		phpBB user
 	*
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\log\log $log)
+	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\log\log $log, \phpbb\user $user)
 	{
 		$this->config	= $config;
 		$this->request	= $request;
 		$this->log		= $log;
+		$this->user		= $user;
 	}
 
 	static public function getSubscribedEvents()
@@ -61,57 +66,96 @@ class main_listener implements EventSubscriberInterface
 	{
 		/**
 		store all variables from $event for future use,
-		return value is only thumbnail_created
+		return value is only thumbnail_created, defaults to false
 		*/
 
-		$ck_it_source		= $event['source'];
-		$ck_it_destination	= $event['destination'];
-		$ck_it_mimetype		= $event['mimetype'];
-		$ck_it_new_widht	= $event['new_width'];
-		$ck_it_new_height	= $event['new_height'];
+		$ck_it_source				= $event['source'];
+		$ck_it_destination			= $event['destination'];
+		$ck_it_mimetype				= $event['mimetype'];
+		$ck_it_new_width			= $event['new_width'];
+		$ck_it_new_height			= $event['new_height'];
+		$ck_it_thumbnail_created	= false;
 
-		// TODO: Create language entries for error messages
+		// load language file
+		$this->user->add_lang('common', false, false,'canonknipser/imthumbnailer');
 
-		// TODO: enable Exception handling
-		if (!($ck_it_thumb = new \Imagick(realpath($ck_it_source.'v'))))
+		try
 		{
-			ck_im_loggen('neue Instanz fehlgeschlagen');
+
+			// create a new instance of ImageMagick and load current image
+			if (!($ck_it_thumb = new \Imagick(realpath($ck_it_source))))
+			{
+				$this->ck_im_loggen($this->user->lang['CK_ERR_NEW_INSTANCE']);
+			}
+
+
+			// Check the mimetype and set the appropriate type for the thumbnail
+			switch($ck_it_mimetype)
+			{
+				case 'image/jpeg':
+					$ck_it_imageformat = 'JPEG';
+					break;
+				case 'image/png':
+					$ck_it_imageformat = 'PNG';
+					break;
+				case 'image/gif':
+					$ck_it_imageformat = 'GIF';
+					break;
+				default:
+					// unknown type, set a default
+					$ck_it_imageformat = 'JPEG';
+					$this->ck_im_loggen($this->user->lang['CK_WARN_MIMETYPE'].$ck_it_mimetype);
+					break;
+			}
+
+			if (!($ck_it_thumb->setImageFormat($ck_it_imageformat)))
+			{
+				$this->ck_im_loggen($this->user->lang['CK_ERR_SET_FORMAT']);
+			}
+
+			// Compression quality is read from config, set in ACP
+			if (!($ck_it_thumb->setImageCompressionQuality($this->config['ck_it_quality'])))
+			{
+				$this->ck_im_loggen($this->user->lang['CK_ERR_SET_FORMAT']);
+			}
+
+			// Do the magic: resize the image using a proper filter
+			// todo: add choise of filters to ACP
+			if (!($ck_it_thumb->resizeImage($ck_it_new_width, $ck_it_new_height, \Imagick::FILTER_LANCZOS, 1, false)))
+			{
+				$this->ck_im_loggen($this->user->lang['CK_ERR_RESIZE']);
+			}
+
+			// Store the image
+			if (($ck_it_thumb->writeImage($ck_it_destination)))
+			{
+				$ck_it_thumbnail_created = true;
+			}
+			else
+			{
+				$this->ck_im_loggen($this->user->lang['CK_ERR_WRITE_IMAGE']);
+			}
+
+		}
+		catch ( \ImagickException $ex)
+		{
+			// write error message for Imagick exceptions to admin log
+			$this->ck_im_loggen($this->user->lang['CK_ERR_CALLING_IMAGICK'].'<br/>'.$ex->getMessage());
 		}
 
-		ck_im_loggen("RealPath: ".$ck_it_source."<br/>Destination: ".$ck_it_destination."<br/>Mimetype: ".$ck_it_mimetype);
-
-		if (!($ck_it_thumb->setImageFormat('JPEG')))
-		{
-			// Log-Meldung schreiben
-			ck_im_loggen('setImageFormat fehlgeschlagen');
-		}
-		$this->log->add('admin', ANONYMOUS, '', "ImageMagick: ".$ck_it_thumb-> getImageFormat());
-
-		// Compression quality is read from config, set in ACP
-		// todo; add choise of filters to ACP
-		if (!($ck_it_thumb->setImageCompressionQuality($this->config['ck_it_quality'])))
-		{
-			// Log-Meldung schreiben
-			ck_im_loggen('setImageCompressionQuality fehlgeschlagen');
-		}
-		if (!($ck_it_thumb->resizeImage($ck_it_new_widht, $ck_it_new_height, \Imagick::FILTER_LANCZOS, 1, false)))
-		{
-			// Log-Meldung schreiben
-			ck_im_loggen('resizeImage fehlgeschlagen');
-		}
-		if (!($ck_it_thumb->writeImage($ck_it_destination)))
-		{
-			// Log-Meldung schreiben
-			ck_im_loggen('writeIMage fehlgeschlagen');
-		}
-
-
-		$event['thumbnail_created'] = true;
+		// set return value
+		$event['thumbnail_created'] = $ck_it_thumbnail_created;
 	}
 
-
+	/**
+	 * Log a message to the admin log
+	 *
+	 * @param string	$ck_log_message	Message written to the log
+	 */
 	function ck_im_loggen($ck_log_message)
 	{
-		$this->log->add('admin', ANONYMOUS, '', $ck_log_message);
+		$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, $ck_log_message);
 	}
+
+
 }

@@ -41,4 +41,13 @@ $lang = array_merge($lang, array(
 	'ACP_CK_IT_QUALITY_EXPLAIN'	=> 'With this setting you can control the image compression quality of the generated thumbnail. Higher values give higher quality, but also bigger file sizes. Before phpBB 3.2.4, the value was set to 80 in the pphBB core',
 	'ACP_CK_IT_SETTING_SAVED'	=> 'Settings have been saved successfully!',
 
+	'CK_ERR_NEW_INSTANCE'		=> 'Error 0001: creating a new instance of Imagick failed',
+	'CK_ERR_SET_FORMAT'			=> 'Error 0002: SetImageFormat failed',
+	'CK_ERR_SET_COMPRESSION_Q'	=> 'Error 0003: SetCompressionQuality failed',
+	'CK_ERR_RESIZE'				=> 'Error 0004: Resize command failed: ',
+	'CK_ERR_WRITE_IMAGE'		=> 'Error 0005: WriteIimage failed ',
+	'CK_ERR_CALLING_IMAGICK'	=> 'Error 0006: Calling a Imagick service failed, original message:',
+
+	'CK_WARN_MIMETYPE'			=> 'Warning 0001: unknown Mime-Type: ',
+
 ));
