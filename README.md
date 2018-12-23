@@ -26,6 +26,12 @@ Go to "ACP" > "Customise" > "Extensions" and enable the "ImageMagick Thumbnailer
 
 please visit the [Changelog](CHANGELOG.md) for a complete list of Changes 
 
+### 1.0.1
+
+- Improved error handling
+- validation issues fixed
+- rotate thumbnails according to their exif information 
+
 ### 1.0.0
 
 - Initial Version

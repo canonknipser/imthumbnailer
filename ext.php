@@ -29,7 +29,7 @@ class ext extends \phpbb\extension\base
 			if (!$return_value)
 			{
 				$user = $this->container->get('user');
-				$user->add_lang_ext('canonknipser/imthumbnailer', 'imthumbnailer_acp');
+				$user->add_lang('imthumbnailer_acp', false, false, 'canonknipser/imthumbnailer');
 				trigger_error($user->lang('CK_IM_REQUIRE_IMAGICK'), E_USER_WARNING);
 			}
 		}
@@ -41,7 +41,7 @@ class ext extends \phpbb\extension\base
 			if (!$return_value)
 			{
 				$user = $this->container->get('user');
-				$user->add_lang_ext('canonknipser/imthumbnailer', 'imthumbnailer_acp');
+				$user->add_lang('imthumbnailer_acp', false, false, 'canonknipser/imthumbnailer');
 				trigger_error($user->lang('CK_IM_REQUIRE_324'), E_USER_WARNING);
 			}
 		}

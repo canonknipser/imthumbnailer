@@ -119,6 +119,83 @@ class main_listener implements EventSubscriberInterface
 				$this->ck_im_loggen($this->user->lang['CK_ERR_SET_FORMAT']);
 			}
 
+			// rotate the image according it's orientation flag
+
+			// read the Orientation from the Image
+			if (!($ck_it_orientation = $ck_it_thumb->getImageOrientation()))
+			{
+				// Orientation flag not available
+				$ck_it_orientation = \Imagick::ORIENTATION_UNDEFINED;
+			}
+
+			// set flags needed for rotation
+			// $ck_it_flop = rotate image around central y-axis
+			// $ct_it_rotate = angle in degrees to rotate
+			// $ck_it_exc_dimension = exchange the dimensions for the generated thumbnail
+			switch($ck_it_orientation)
+			{
+				case \Imagick::ORIENTATION_TOPLEFT:
+					$ck_it_flop = false;
+					$ck_it_rotate = 0;
+					$ck_it_exc_dimension = false;
+					break;
+				case \Imagick::ORIENTATION_TOPRIGHT:
+					$ck_it_flop = true;
+					$ck_it_rotate = 0;
+					$ck_it_exc_dimension = false;
+					break;
+				case \Imagick::ORIENTATION_BOTTOMRIGHT:
+					$ck_it_flop = false;
+					$ck_it_rotate = 180;
+					$ck_it_exc_dimension = false;
+					break;
+				case \Imagick::ORIENTATION_BOTTOMLEFT:
+					$ck_it_flop = true;
+					$ck_it_rotate = 180;
+					$ck_it_exc_dimension = false;
+					break;
+				case \Imagick::ORIENTATION_LEFTTOP:
+					$ck_it_flop = true;
+					$ck_it_rotate = -90;
+					$ck_it_exc_dimension = true;
+					break;
+				case \Imagick::ORIENTATION_RIGHTTOP:
+					$ck_it_flop = false;
+					$ck_it_rotate = 90;
+					$ck_it_exc_dimension = true;
+					break;
+				case \Imagick::ORIENTATION_RIGHTBOTTOM:
+					$ck_it_flop = true;
+					$ck_it_rotate = 90;
+					$ck_it_exc_dimension = true;
+					break;
+				case \Imagick::ORIENTATION_LEFTBOTTOM:
+					$ck_it_flop = false;
+					$ck_it_rotate = -90;
+					$ck_it_exc_dimension = true;
+					break;
+				default:
+					$ck_it_flop = false;
+					$ck_it_rotate = 0;
+					$ck_it_exc_dimension = false;
+					break;
+			}
+			if ($ck_it_flop)
+			{
+				$ck_it_thumb->flopImage();
+			}
+			if ($ck_it_rotate != 0)
+			{
+				$ck_it_thumb->rotateImage("#000", $ck_it_rotate);
+			}
+			if ($ck_it_exc_dimension)
+			{
+				$ck_it_tmp = $ck_it_new_width;
+				$ck_it_new_width = $ck_it_new_height;
+				$ck_it_new_height = $ck_it_tmp;
+			}
+			$ck_it_thumb->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT);
+
 			// Do the magic: resize the image using a proper filter
 			// todo: add choise of filters to ACP
 			if (!($ck_it_thumb->resizeImage($ck_it_new_width, $ck_it_new_height, \Imagick::FILTER_LANCZOS, 1, false)))

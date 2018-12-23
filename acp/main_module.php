@@ -23,7 +23,7 @@ class main_module
 	{
 		global $config, $request, $template, $user;
 
-		$user->add_lang_ext('canonknipser/imthumbnailer', 'common');
+		$user->add_lang('common', false, false, 'canonknipser/imthumbnailer');
 		$this->tpl_name = 'acp_ck_it_body';
 		$this->page_title = $user->lang('ACP_CK_IT_TITLE');
 		add_form_key('ck/it');
