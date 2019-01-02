@@ -88,9 +88,8 @@ class main_listener implements EventSubscriberInterface
 				$this->ck_im_loggen($this->user->lang['CK_ERR_NEW_INSTANCE']);
 			}
 
-
 			// Check the mimetype and set the appropriate type for the thumbnail
-			switch($ck_it_mimetype)
+			switch ($ck_it_mimetype)
 			{
 				case 'image/jpeg':
 					$ck_it_imageformat = 'JPEG';
@@ -132,7 +131,7 @@ class main_listener implements EventSubscriberInterface
 			// $ck_it_flop = rotate image around central y-axis
 			// $ct_it_rotate = angle in degrees to rotate
 			// $ck_it_exc_dimension = exchange the dimensions for the generated thumbnail
-			switch($ck_it_orientation)
+			switch ($ck_it_orientation)
 			{
 				case \Imagick::ORIENTATION_TOPLEFT:
 					$ck_it_flop = false;

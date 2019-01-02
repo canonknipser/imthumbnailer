@@ -38,4 +38,3 @@ $lang = array_merge($lang, array(
 	'CK_IM_REQUIRE_IMAGICK'				=> 'This extension requires the PHP ImageMagick library to be installed. Please update your PHP installation',
 	'CK_IM_REQUIRE_324'					=> 'This extension requires at least phpBB version 3.2.4',
 ));
-
