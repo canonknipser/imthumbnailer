@@ -10,7 +10,7 @@
 
 namespace canonknipser\imthumbnailer\migrations;
 
-class install_acp_V1_0_0 extends \phpbb\db\migration\migration
+class install_acp_v1_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
