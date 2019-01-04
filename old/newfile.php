@@ -1,5 +1,5 @@
 <?php
-switch($ck_it_thumb->getImageOrientation())
+switch ($ck_it_thumb->getImageOrientation())
 {
 
 	case \Imagick::ORIENTATION_UNDEFINED:
@@ -55,4 +55,3 @@ foreach ($exifArray as $name => $property)
 	$message .=  "{$name} => {$property}<br />\n";
 }
 $this->ck_im_loggen($message);
-
