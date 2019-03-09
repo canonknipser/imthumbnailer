@@ -38,7 +38,7 @@ $lang = array_merge($lang, array(
 
 	'ACP_CK_IT'					=> 'Settings',
 	'ACP_CK_IT_QUALITY'			=> 'Compression quality',
-	'ACP_CK_IT_QUALITY_EXPLAIN'	=> 'With this setting you can control the image compression quality of the generated thumbnail. Higher values give higher quality, but also bigger file sizes. Before phpBB 3.2.4, the value was set to 80 in the phpBB core', // fixed issue #7
+	'ACP_CK_IT_QUALITY_EXPLAIN'	=> 'With this setting you can control the image compression quality of the generated thumbnail. Higher values give higher quality, but also bigger file sizes. Before phpBB 3.2.4, the value was set to 80 in the phpBB core', // fixed issue #7: misspelling of phpBB
 	'ACP_CK_IT_SETTING_SAVED'	=> 'Settings have been saved successfully!',
 
 	'CK_ERR_NEW_INSTANCE'		=> 'Error 0001: creating a new instance of Imagick failed',
