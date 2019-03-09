@@ -196,7 +196,7 @@ class main_listener implements EventSubscriberInterface
 			$ck_it_thumb->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT);
 
 			// Do the magic: resize the image using a proper filter
-			// todo: add choise of filters to ACP
+			// todo: add choise of filters to ACP (Issue #2)
 			if (!($ck_it_thumb->resizeImage($ck_it_new_width, $ck_it_new_height, \Imagick::FILTER_LANCZOS, 1, false)))
 			{
 				$this->ck_im_loggen($this->user->lang['CK_ERR_RESIZE']);
