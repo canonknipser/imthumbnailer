@@ -22,10 +22,14 @@ class main_module
 	public function main($id, $mode)
 	{
 		global $config, $request, $template, $user;
+		global $phpbb_container;
 
-		$user->add_lang('common', false, false, 'canonknipser/imthumbnailer');
+		// fixed issue #4 Use $language instead of $user->lang
+		$language = $phpbb_container->get('language');
+		$language->add_lang('common', 'canonknipser/imthumbnailer');
+
 		$this->tpl_name = 'acp_ck_it_body';
-		$this->page_title = $user->lang('ACP_CK_IT_TITLE');
+		$this->page_title = $language->lang('ACP_CK_IT_TITLE');
 		add_form_key('ck/it');
 
 		if ($request->is_set_post('submit'))
@@ -37,7 +41,7 @@ class main_module
 
 			$config->set('ck_it_quality', $request->variable('ck_it_quality', 0));
 
-			trigger_error($user->lang('ACP_CK_IT_SETTING_SAVED') . adm_back_link($this->u_action));
+			trigger_error($language->lang('ACP_CK_IT_SETTING_SAVED') . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars(array(

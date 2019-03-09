@@ -29,25 +29,31 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\log\log */
 	protected $log;
 
-	/* @var \phpbb\user */
+	/** @var \phpbb\user */
 	protected $user;
+
+	/** @var \phpbb\language\language */
+	protected $language;
+
 
 	/**
 	* Constructor for listener
 	*
-	* @param \phpbb\config\config	$config		phpBB config
-	* @param \phpbb\request\request	$request	phpBB request
-	* @param \phpbb\log\log			$log		phpBB log
-	* @param \phpbb\user			$user		phpBB user
+	* @param \phpbb\config\config		$config		phpBB config
+	* @param \phpbb\request\request		$request	phpBB request
+	* @param \phpbb\log\log				$log		phpBB log
+	* @param \phpbb\user				$user		phpBB user
+	* @param \phpbb\language\language	$language	phpBB language
 	*
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\log\log $log, \phpbb\user $user)
+	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\log\log $log, \phpbb\user $user, \phpbb\language\language $language)
 	{
 		$this->config	= $config;
 		$this->request	= $request;
 		$this->log		= $log;
 		$this->user		= $user;
+		$this->language	= $language;
 	}
 
 	static public function getSubscribedEvents()
@@ -77,7 +83,8 @@ class main_listener implements EventSubscriberInterface
 		$ck_it_thumbnail_created	= false;
 
 		// load language file
-		$this->user->add_lang('common', false, false,'canonknipser/imthumbnailer');
+		// fixed issue #4 Use $language instead of $user->lang
+		$this->language->add_lang('common', 'canonknipser/imthumbnailer');
 
 		try
 		{
@@ -85,7 +92,7 @@ class main_listener implements EventSubscriberInterface
 			// create a new instance of ImageMagick and load current image
 			if (!($ck_it_thumb = new \Imagick(realpath($ck_it_source))))
 			{
-				$this->ck_im_loggen($this->user->lang['CK_ERR_NEW_INSTANCE']);
+				$this->ck_im_loggen($this->language->lang('CK_ERR_NEW_INSTANCE'));
 			}
 
 			// Check the mimetype and set the appropriate type for the thumbnail
@@ -103,19 +110,19 @@ class main_listener implements EventSubscriberInterface
 				default:
 					// unknown type, set a default
 					$ck_it_imageformat = 'JPEG';
-					$this->ck_im_loggen($this->user->lang['CK_WARN_MIMETYPE'].$ck_it_mimetype);
+					$this->ck_im_loggen($this->language->lang('CK_WARN_MIMETYPE').$ck_it_mimetype);
 					break;
 			}
 
 			if (!($ck_it_thumb->setImageFormat($ck_it_imageformat)))
 			{
-				$this->ck_im_loggen($this->user->lang['CK_ERR_SET_FORMAT']);
+				$this->ck_im_loggen($this->language->lang('CK_ERR_SET_FORMAT'));
 			}
 
 			// Compression quality is read from config, set in ACP
 			if (!($ck_it_thumb->setImageCompressionQuality($this->config['ck_it_quality'])))
 			{
-				$this->ck_im_loggen($this->user->lang['CK_ERR_SET_FORMAT']);
+				$this->ck_im_loggen($this->language->lang('CK_ERR_SET_FORMAT'));
 			}
 
 			// rotate the image according it's orientation flag
@@ -199,7 +206,7 @@ class main_listener implements EventSubscriberInterface
 			// todo: add choise of filters to ACP (Issue #2)
 			if (!($ck_it_thumb->resizeImage($ck_it_new_width, $ck_it_new_height, \Imagick::FILTER_LANCZOS, 1, false)))
 			{
-				$this->ck_im_loggen($this->user->lang['CK_ERR_RESIZE']);
+				$this->ck_im_loggen($this->language->lang('CK_ERR_RESIZE'));
 			}
 
 			// Store the image
@@ -209,14 +216,14 @@ class main_listener implements EventSubscriberInterface
 			}
 			else
 			{
-				$this->ck_im_loggen($this->user->lang['CK_ERR_WRITE_IMAGE']);
+				$this->ck_im_loggen($this->language->lang('CK_ERR_WRITE_IMAGE'));
 			}
 
 		}
 		catch ( \ImagickException $ex)
 		{
 			// write error message for Imagick exceptions to admin log
-			$this->ck_im_loggen($this->user->lang['CK_ERR_CALLING_IMAGICK'].'<br/>'.$ex->getMessage());
+			$this->ck_im_loggen($this->language->lang('CK_ERR_CALLING_IMAGICK').'<br/>'.$ex->getMessage());
 		}
 
 		// set return value
