@@ -148,6 +148,8 @@ class main_listener implements EventSubscriberInterface
 		if ($ck_it_is_image)
 		{
 			// do the magic only for images
+			// TODO Complete the function
+
 		}
 
 	}
@@ -207,7 +209,6 @@ class main_listener implements EventSubscriberInterface
 		{
 			$this->ck_im_loggen($this->language->lang('CK_ERR_SET_FORMAT'));
 		}
-
 
 	}
 
@@ -296,7 +297,6 @@ class main_listener implements EventSubscriberInterface
 		{
 			$this->ck_im_loggen($this->language->lang('CK_ERR_RESIZE'));
 		}
-
 
 	}
 }
