@@ -1,7 +1,7 @@
 #to do list
 
 - Add config values for storing old image width and height, populate them during installation, 
-- Add config cvalues for extension width and height, populate them during installation
+- Add config values for extension width and height, populate them during installation
 - clear old values during installation
 
 
